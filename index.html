@@ -1,50 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Get Your Script Key</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Your Script Key</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            padding: 20px; 
+        body {
+            font-family: Arial, sans-serif;
             background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            position: relative;
         }
-        #ad-container { 
-            margin: 20px auto; 
-            width: 300px; 
-            height: 250px; 
+        .ad-btn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        #key-display { 
-            display: none; 
-            margin-top: 20px; 
-            font-weight: bold; 
-            font-size:18px;
+        .ad-btn.clicked {
+            background-color: gray;
+            cursor: default;
         }
-        button { 
-            padding: 10px 20px; 
-            background: gray; 
-            color: white; 
-            border: none; 
-            cursor: not-allowed; 
-            font-size:16px;
+        #getKeyBtn {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
         }
-        button.active { 
-            background: #4CAF50; 
-            cursor: pointer; 
+        #getKeyBtn.unlocked {
+            background-color: #28a745;
+            cursor: pointer;
         }
-        #timer { 
-            margin-top: 10px; 
-            color: #dc3545; 
-            font-weight: bold; 
+        #timer {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+        #key-display {
+            margin-top: 20px;
+            display: none;
+            font-weight: bold;
+        }
+        #discord-btn {
+            margin-top: 30px;
+            padding: 10px 15px;
+            background: #5865F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .banner-ad {
+            margin: 20px auto;
+        }
+        @media (max-width: 600px) {
+            iframe {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>🔑 Get Your Script Key</h1>
-    <p>To unlock the script, please watch the ad below completely:</p>
+    <h1>🔑 Unlock Your Script Key</h1>
+    <p>Click all 3 ad buttons below to unlock your key:</p>
 
-    <!-- Adsterra Ad Container -->
-    <div id="ad-container">
+    <button class="ad-btn" onclick="openAd(1, 'https://www.profitableratecpm.com/p3krsaxm?key=c21611caf70fa0964578fa727eb88862')">Click Ad 1</button>
+    <button class="ad-btn" onclick="openAd(2, 'https://www.profitableratecpm.com/d2fk86gpdn?key=edd34770cc672b4ca1685d60f32c5a06')">Click Ad 2</button>
+    <button class="ad-btn" onclick="openAd(3, 'https://www.profitableratecpm.com/ir2jdmkdj?key=d98f4e5e832667b62567da9326094c5c')">Click Ad 3</button>
+
+    <button id="getKeyBtn" disabled>🔓 Get My Key</button>
+    <div id="timer">Please wait 5 seconds...</div>
+
+    <div id="key-display">
+        <p>Your Key: <span id="key"></span></p>
+        <button onclick="copyKey()">📋 Copy Key</button>
+    </div>
+
+    <a id="discord-btn" href="https://discord.com/invite/JHAtgAdBps" target="_blank">Join our Discord 💬</a>
+
+    <div class="banner-ad">
+        <!-- 468x60 banner -->
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '7f2c64878a335a7914bd721426a2386a',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/7f2c64878a335a7914bd721426a2386a/invoke.js"></script>
+    </div>
+
+    <div class="banner-ad">
+        <!-- 300x250 banner -->
         <script type="text/javascript">
             atOptions = {
                 'key' : '7ad8c208c3d61a66c61537f918941dd9',
@@ -54,58 +111,59 @@
                 'params' : {}
             };
         </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/7ad8c208c3d61a66c61537f918941dd9/invoke.js"></script>
-    </div>
-
-    <button id="getKeyBtn" disabled>Get My Key</button>
-    <div id="timer">Please wait 15 seconds...</div>
-
-    <div id="key-display">
-        <p>Your Key: <span id="key">XXXX-XXXX-XXXX</span></p>
-        <button onclick="copyKey()">📋 Copy Key</button>
-        <p>Copy this into the script to unlock it.</p>
+        <script type="text/javascript" src="//www.highperformanceformat.com/7ad8c208c3d61a66c61537f918941dd9/invoke.js"></script>
     </div>
 
     <script>
-        // Timer Countdown (simulate ad watch)
-        let countdown = 15; // You can change this as needed
-        const btn = document.getElementById('getKeyBtn');
-        const timer = document.getElementById('timer');
+        let adsClicked = [false, false, false];
 
-        const interval = setInterval(() => {
-            countdown--;
-            timer.innerText = "Please wait " + countdown + " seconds...";
-            if (countdown <= 0) {
-                clearInterval(interval);
-                btn.disabled = false;
-                btn.classList.add('active');
-                timer.innerText = "✅ You can now get your key!";
+        function openAd(index, url) {
+            if (!adsClicked[index - 1]) {
+                window.open(url, '_blank');
+                adsClicked[index - 1] = true;
+                document.getElementsByClassName('ad-btn')[index - 1].classList.add('clicked');
+                document.getElementsByClassName('ad-btn')[index - 1].disabled = true;
+                checkAllAds();
             }
-        }, 1000);
+        }
 
-        // Generate Key after clicking button
-        btn.onclick = function() {
-            if (!btn.disabled) {
-                const key = "KEY-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-                document.getElementById("key").innerText = key;
-                document.getElementById("key-display").style.display = "block";
-                btn.disabled = true;
-                btn.style.cursor = 'default';
-                btn.style.background = 'gray';
-                timer.style.display = 'none';
+        function checkAllAds() {
+            if (adsClicked.every(Boolean)) {
+                const getKeyBtn = document.getElementById('getKeyBtn');
+                getKeyBtn.disabled = false;
+                getKeyBtn.classList.add('unlocked');
+            }
+        }
+
+        document.getElementById('getKeyBtn').onclick = function () {
+            if (!this.disabled) {
+                this.disabled = true;
+                document.getElementById('timer').style.display = 'block';
+                let countdown = 5;
+                const interval = setInterval(() => {
+                    document.getElementById('timer').innerText = 'Please wait ' + countdown + ' seconds...';
+                    countdown--;
+                    if (countdown < 0) {
+                        clearInterval(interval);
+                        document.getElementById('timer').style.display = 'none';
+                        const key = 'KEY-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                        document.getElementById('key').innerText = key;
+                        document.getElementById('key-display').style.display = 'block';
+                    }
+                }, 1000);
             }
         };
 
-        // Copy Key to Clipboard
         function copyKey() {
-            const key = document.getElementById("key").innerText;
+            const key = document.getElementById('key').innerText;
             navigator.clipboard.writeText(key).then(() => {
-                alert('Key copied to clipboard!');
+                alert('✅ Key copied to clipboard!');
             }, () => {
-                alert('Failed to copy key.');
+                alert('❌ Failed to copy key.');
             });
         }
     </script>
 </body>
 </html>
+
 
