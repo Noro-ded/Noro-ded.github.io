@@ -115,6 +115,19 @@
     </div>
 
     <script>
+        const validKeys = [
+            "D3D-73YX-P5LF", "D3D-RU5M-XV3J", "D3D-29LC-QN7T", "D3D-VW6B-MT9K",
+            "D3D-J2DM-XU4N", "D3D-Y6HE-PX3Q", "D3D-ZM4T-FW2N", "D3D-BN9K-JU6X",
+            "D3D-A4QE-TY8R", "D3D-NY8B-KL7D", "D3D-MT3E-QW4X", "D3D-LP7V-ZC1R",
+            "D3D-KT6W-HJ3P", "D3D-XR5N-MV9T", "D3D-QZ8P-NF7B", "D3D-JH2R-BL5K",
+            "D3D-WK3L-YU2D", "D3D-PL5C-DX4N", "D3D-HN6X-VB3Q", "D3D-CQ2Y-ML6T",
+            "D3D-GM7K-PT9E", "D3D-FL9Z-RN2B", "D3D-YU5H-XJ3V", "D3D-SR8P-KM6L",
+            "D3D-MQ2N-WY7X", "D3D-ZE4R-JT1D", "D3D-VX6C-FB3N", "D3D-NL3B-MR9T",
+            "D3D-KX9E-YJ4Q", "D3D-TM7Q-VL2P", "D3D-QN3F-KY6Z", "D3D-BY2D-XH8V",
+            "D3D-LM6P-NZ3T", "D3D-XC4K-PR5B", "D3D-JT1Y-MQ9D", "D3D-WR6X-YE2L",
+            "D3D-HY8M-TC4P", "D3D-ZP9K-FV3N", "D3D-AQ2R-WT7X", "D3D-GN5L-YX1B"
+        ];
+
         let adsClicked = [false, false, false];
 
         function openAd(index, url) {
@@ -146,7 +159,7 @@
                     if (countdown < 0) {
                         clearInterval(interval);
                         document.getElementById('timer').style.display = 'none';
-                        const key = 'KEY-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                        const key = validKeys[Math.floor(Math.random() * validKeys.length)];
                         document.getElementById('key').innerText = key;
                         document.getElementById('key-display').style.display = 'block';
                     }
