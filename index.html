@@ -13,8 +13,9 @@
     <h1>🔑 Get Your Script Key</h1>
     <p>To unlock the script, please watch the ad below:</p>
 
-    <!-- Ad Network Placeholder (Replace with real ad code) -->
+    <!-- Replace below div with Adsterra's provided ad code -->
     <div id="ad-container">
+        <!-- Paste your Adsterra ad code here -->
         <p>[Ad Display Here]</p>
     </div>
 
@@ -27,10 +28,8 @@
 
     <script>
         function showKey() {
-            // Simulate ad viewing (replace with real ad callback)
             alert("Thanks for watching! Here’s your key.");
 
-            // Generate a random key (or fetch from a server later)
             const key = "KEY-" + Math.random().toString(36).substring(2, 10).toUpperCase();
             document.getElementById("key").innerText = key;
             document.getElementById("key-display").style.display = "block";
@@ -38,3 +37,4 @@
     </script>
 </body>
 </html>
+
