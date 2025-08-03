@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Your Script Key</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #ad-container { margin: 20px auto; width: 300px; height: 250px; background: #f0f0f0; }
+        #key-display { display: none; margin-top: 20px; font-weight: bold; }
+        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔑 Get Your Script Key</h1>
+    <p>To unlock the script, please watch the ad below:</p>
+
+    <!-- Ad Network Placeholder (Replace with real ad code) -->
+    <div id="ad-container">
+        <p>[Ad Display Here]</p>
+    </div>
+
+    <button onclick="showKey()">Get My Key</button>
+
+    <div id="key-display">
+        <p>Your Key: <span id="key">XXXX-XXXX-XXXX</span></p>
+        <p>Copy this into the script to unlock it.</p>
+    </div>
+
+    <script>
+        function showKey() {
+            // Simulate ad viewing (replace with real ad callback)
+            alert("Thanks for watching! Here’s your key.");
+
+            // Generate a random key (or fetch from a server later)
+            const key = "KEY-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            document.getElementById("key").innerText = key;
+            document.getElementById("key-display").style.display = "block";
+        }
+    </script>
+</body>
+</html>
