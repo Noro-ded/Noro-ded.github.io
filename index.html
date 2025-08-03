@@ -3,36 +3,107 @@
 <head>
     <title>Get Your Script Key</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        #ad-container { margin: 20px auto; width: 300px; height: 250px; background: #f0f0f0; }
-        #key-display { display: none; margin-top: 20px; font-weight: bold; }
-        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f8f9fa;
+        }
+        #ad-container { 
+            margin: 20px auto; 
+            width: 300px; 
+            height: 250px; 
+        }
+        #key-display { 
+            display: none; 
+            margin-top: 20px; 
+            font-weight: bold; 
+            font-size:18px;
+        }
+        button { 
+            padding: 10px 20px; 
+            background: gray; 
+            color: white; 
+            border: none; 
+            cursor: not-allowed; 
+            font-size:16px;
+        }
+        button.active { 
+            background: #4CAF50; 
+            cursor: pointer; 
+        }
+        #timer { 
+            margin-top: 10px; 
+            color: #dc3545; 
+            font-weight: bold; 
+        }
     </style>
 </head>
 <body>
     <h1>🔑 Get Your Script Key</h1>
-    <p>To unlock the script, please watch the ad below:</p>
+    <p>To unlock the script, please watch the ad below completely:</p>
 
-    <!-- Replace below div with Adsterra's provided ad code -->
+    <!-- Adsterra Ad Container -->
     <div id="ad-container">
-        <!-- Paste your Adsterra ad code here -->
-        <p>[Ad Display Here]</p>
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '7ad8c208c3d61a66c61537f918941dd9',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/7ad8c208c3d61a66c61537f918941dd9/invoke.js"></script>
     </div>
 
-    <button onclick="showKey()">Get My Key</button>
+    <button id="getKeyBtn" disabled>Get My Key</button>
+    <div id="timer">Please wait 15 seconds...</div>
 
     <div id="key-display">
         <p>Your Key: <span id="key">XXXX-XXXX-XXXX</span></p>
+        <button onclick="copyKey()">📋 Copy Key</button>
         <p>Copy this into the script to unlock it.</p>
     </div>
 
     <script>
-        function showKey() {
-            alert("Thanks for watching! Here’s your key.");
+        // Timer Countdown (simulate ad watch)
+        let countdown = 15; // You can change this as needed
+        const btn = document.getElementById('getKeyBtn');
+        const timer = document.getElementById('timer');
 
-            const key = "KEY-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-            document.getElementById("key").innerText = key;
-            document.getElementById("key-display").style.display = "block";
+        const interval = setInterval(() => {
+            countdown--;
+            timer.innerText = "Please wait " + countdown + " seconds...";
+            if (countdown <= 0) {
+                clearInterval(interval);
+                btn.disabled = false;
+                btn.classList.add('active');
+                timer.innerText = "✅ You can now get your key!";
+            }
+        }, 1000);
+
+        // Generate Key after clicking button
+        btn.onclick = function() {
+            if (!btn.disabled) {
+                const key = "KEY-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+                document.getElementById("key").innerText = key;
+                document.getElementById("key-display").style.display = "block";
+                btn.disabled = true;
+                btn.style.cursor = 'default';
+                btn.style.background = 'gray';
+                timer.style.display = 'none';
+            }
+        };
+
+        // Copy Key to Clipboard
+        function copyKey() {
+            const key = document.getElementById("key").innerText;
+            navigator.clipboard.writeText(key).then(() => {
+                alert('Key copied to clipboard!');
+            }, () => {
+                alert('Failed to copy key.');
+            });
         }
     </script>
 </body>
